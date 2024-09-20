@@ -1,3 +1,5 @@
+import 'models/github_response.dart';
+
 abstract class GithubRepository {
   static const String host = 'api.github.com';
 
@@ -8,7 +10,5 @@ abstract class GithubRepository {
   String get apiVersion;
 
   /// GitHub API Feature Type
-  /// e.g.
-  /// - search
-  String get featureType;
+  GitHubFeature get feature;
 }

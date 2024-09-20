@@ -1,8 +1,8 @@
 import 'github_item.dart';
 
 /// parse item type
-enum ItemType {
-  repository,
+enum GitHubFeature {
+  repositories,
 }
 
 /// GitHub API Response model
@@ -19,14 +19,14 @@ class GithubResponse {
 
   factory GithubResponse.fromJson(
     Map<String, dynamic> json, {
-    required ItemType type,
+    required GitHubFeature type,
   }) {
     return GithubResponse(
       totalCount: json['total_count'],
       incompleteResults: json['incomplete_results'],
       items: (json['items'] as List)
           .map((item) => switch (type) {
-                ItemType.repository => RepositoryItem.fromJson(item as Map<String, dynamic>),
+                GitHubFeature.repositories => RepositoryItem.fromJson(item as Map<String, dynamic>),
               })
           .toList(),
     );

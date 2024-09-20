@@ -4,8 +4,8 @@ import 'github_repository.dart';
 import 'models/github_response.dart';
 
 /// GitHub Search API's
-class GithubSearchRepository extends GithubRepository {
-  GithubSearchRepository(this._token);
+class GithubRepoRepository extends GithubRepository {
+  GithubRepoRepository(this._token);
 
   final String _token;
 
@@ -16,19 +16,20 @@ class GithubSearchRepository extends GithubRepository {
   String get token => _token;
 
   @override
-  String get featureType => 'search';
+  GitHubFeature get feature => GitHubFeature.repositories;
 
   /// Search Repositories
   ///
-  /// doc: https://docs.github.com/ja/rest/search/search?apiVersion=2022-11-28#search-code
-  Future<GithubResponse> repositories(
+  /// doc: https://docs.github.com/ja/rest/search/search?apiVersion=2022-11-28#search-repositories
+  Future<GithubResponse> search(
     String query, {
     Sort sort = Sort.stars,
     Order order = Order.desc,
     int perPage = 30,
     int page = 1,
+    String? token,
+    String? apiVersion,
   }) async {
-    const feature = 'repositories';
     final queryParameters = Map<String, String>.unmodifiable({
       'q': query,
       'sort': sort.kebabCase,
@@ -37,12 +38,12 @@ class GithubSearchRepository extends GithubRepository {
       'page': '$page',
     });
     final response = await GithubClient.request(
-      token: token,
-      url: Uri.http(GithubRepository.host, '$featureType/$feature', queryParameters),
+      token: token ?? this.token,
+      url: Uri.http(GithubRepository.host, '${feature.name}/$feature', queryParameters),
       method: HttpMethod.get,
-      apiVersion: apiVersion,
+      apiVersion: apiVersion ?? this.apiVersion,
     );
 
-    return GithubResponse.fromJson(jsonDecode(response.body), type: ItemType.repository);
+    return GithubResponse.fromJson(jsonDecode(response.body), type: GitHubFeature.repositories);
   }
 }
