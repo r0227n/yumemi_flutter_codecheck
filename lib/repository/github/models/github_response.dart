@@ -1,6 +1,5 @@
 import 'github_item.dart';
 
-/// parse item type
 enum GitHubFeature {
   repositories,
 }
