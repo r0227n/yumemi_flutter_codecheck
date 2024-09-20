@@ -1,6 +1,7 @@
-import 'package:yumemi_flutter_codecheck/repository/github/github_client.dart';
-
+import 'dart:convert';
+import 'github_client.dart';
 import 'github_repository.dart';
+import 'models/github_response.dart';
 
 /// GitHub Search API's
 class GithubSearchRepository extends GithubRepository {
@@ -20,7 +21,7 @@ class GithubSearchRepository extends GithubRepository {
   /// Search Repositories
   ///
   /// doc: https://docs.github.com/ja/rest/search/search?apiVersion=2022-11-28#search-code
-  Future<void> repositories(
+  Future<GithubResponse> repositories(
     String query, {
     Sort sort = Sort.stars,
     Order order = Order.desc,
@@ -41,5 +42,7 @@ class GithubSearchRepository extends GithubRepository {
       method: HttpMethod.get,
       apiVersion: apiVersion,
     );
+
+    return GithubResponse.fromJson(jsonDecode(response.body), type: ItemType.repository);
   }
 }
