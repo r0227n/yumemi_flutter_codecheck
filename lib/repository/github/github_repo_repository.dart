@@ -30,6 +30,8 @@ class GithubRepoRepository extends GithubRepository {
     String? token,
     String? apiVersion,
   }) async {
+    const apiType = 'search';
+
     final queryParameters = Map<String, String>.unmodifiable({
       'q': query,
       'sort': sort.kebabCase,
@@ -37,9 +39,10 @@ class GithubRepoRepository extends GithubRepository {
       'per_page': '$perPage',
       'page': '$page',
     });
+
     final response = await GithubClient.request(
       token: token ?? this.token,
-      url: Uri.http(GithubRepository.host, '${feature.name}/$feature', queryParameters),
+      url: Uri.http(GithubRepository.host, '$apiType/${feature.name}', queryParameters),
       method: HttpMethod.get,
       apiVersion: apiVersion ?? this.apiVersion,
     );
