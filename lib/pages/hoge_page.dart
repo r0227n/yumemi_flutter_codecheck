@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:yumemi_flutter_codecheck/pages/detail_page.dart';
 import '../environment/secrets.dart';
 import '../repository/github.dart';
 
@@ -47,6 +48,12 @@ class _HomePageState extends State<HomePage> {
                             errorWidget: (context, url, error) => const Icon(Icons.error),
                           ),
                           title: Text(i.name),
+                          onTap: () {
+                            print(i.htmlUrl);
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => DetailPage(i),
+                            ));
+                          },
                         )
                     ],
                   ),
