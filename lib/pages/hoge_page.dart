@@ -47,9 +47,25 @@ class _HomePageState extends State<HomePage> {
                             placeholder: (context, url) => const CircularProgressIndicator(),
                             errorWidget: (context, url, error) => const Icon(Icons.error),
                           ),
-                          title: Text(i.name),
+                          title: Text(
+                            i.name,
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                i.description,
+                                maxLines: 1,
+                                style: const TextStyle(overflow: TextOverflow.ellipsis),
+                              ),
+                              Chip(
+                                label: Text(i.language),
+                              ),
+                            ],
+                          ),
+                          isThreeLine: true,
                           onTap: () {
-                            print(i.htmlUrl);
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => DetailPage(i),
                             ));
