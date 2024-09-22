@@ -74,12 +74,29 @@ class _HomePageState extends State<HomePage> {
               });
             },
           ),
-          IconButton(
-            onPressed: () {
-              // TODO: ポップアップで設定画面を表示
+          MenuAnchor(
+            menuChildren: <Widget>[
+              MenuItemButton(
+                child: const Text('Settings'),
+                onPressed: () {
+                  // TODO: showDialog実装
+                },
+              ),
+            ],
+            child: const Text('Background Color'),
+            builder: (BuildContext context, MenuController controller, Widget? child) {
+              return IconButton(
+                onPressed: () {
+                  if (controller.isOpen) {
+                    controller.close();
+                  } else {
+                    controller.open();
+                  }
+                },
+                tooltip: 'Settings',
+                icon: const Icon(Icons.settings_outlined),
+              );
             },
-            tooltip: 'Settings',
-            icon: const Icon(Icons.settings_outlined),
           ),
         ],
       ),
