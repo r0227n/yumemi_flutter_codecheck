@@ -1,11 +1,11 @@
 import 'license.dart';
 import 'owner.dart';
 
-/// Parsed as elements of the [items] property of [GitHubResponse]
-sealed class GitHubItem {}
+/// Parsed as elements of the [items] property of [SearchResponse]
+sealed class SearchItem {}
 
-/// Parsed as elements of the [items] property for the Repository's [GitHubResponse]
-class RepositoryItem extends GitHubItem {
+/// Parsed as elements of the [items] property for the Repository's [SearchResponse]
+class RepositoryItem extends SearchItem {
   RepositoryItem({
     required this.id,
     required this.nodeId,
@@ -24,7 +24,7 @@ class RepositoryItem extends GitHubItem {
     required this.size,
     required this.stargazersCount,
     required this.watchersCount,
-    required this.language,
+    this.language,
     required this.forksCount,
     required this.openIssuesCount,
     required this.defaultBranch,
@@ -49,7 +49,7 @@ class RepositoryItem extends GitHubItem {
   final int size;
   final int stargazersCount;
   final int watchersCount;
-  final String language;
+  final String? language;
   final int forksCount;
   final int openIssuesCount;
   final String defaultBranch;
