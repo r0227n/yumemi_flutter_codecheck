@@ -20,6 +20,10 @@ dependencies:
 
   cupertino_icons: ^1.0.8
 
+  # state manager
+  riverpod_annotation: ^2.3.5
+  flutter_riverpod: ^2.5.1
+
   # features
   http: ^1.2.2
   cached_network_image: ^3.4.1
@@ -29,6 +33,12 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^4.0.0
+  custom_lint: ^0.6.7
+  riverpod_lint: ^2.3.13
+
+  build_runner: ^2.4.12
+  riverpod_generator: ^2.4.3
+  
 
 flutter:
   generate: true
