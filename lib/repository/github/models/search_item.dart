@@ -1,11 +1,11 @@
 import 'license.dart';
 import 'owner.dart';
 
-/// Parsed as elements of the [items] property of [GitHubResponse]
-sealed class GitHubItem {}
+/// Parsed as elements of the [items] property of [SearchResponse]
+sealed class SearchItem {}
 
-/// Parsed as elements of the [items] property for the Repository's [GitHubResponse]
-class RepositoryItem extends GitHubItem {
+/// Parsed as elements of the [items] property for the Repository's [SearchResponse]
+class RepositoryItem extends SearchItem {
   RepositoryItem({
     required this.id,
     required this.nodeId,

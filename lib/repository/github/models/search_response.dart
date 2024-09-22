@@ -1,12 +1,12 @@
-import 'github_item.dart';
+import 'search_item.dart';
 
-enum GitHubFeature {
+enum SearchEntity {
   repositories,
 }
 
 /// GitHub API Response model
-class GithubResponse {
-  GithubResponse({
+class SearchResponse {
+  SearchResponse({
     required this.totalCount,
     required this.incompleteResults,
     required this.items,
@@ -14,18 +14,18 @@ class GithubResponse {
 
   final int totalCount;
   final bool incompleteResults;
-  final List<GitHubItem> items;
+  final List<SearchItem> items;
 
-  factory GithubResponse.fromJson(
+  factory SearchResponse.fromJson(
     Map<String, dynamic> json, {
-    required GitHubFeature type,
+    required SearchEntity type,
   }) {
-    return GithubResponse(
+    return SearchResponse(
       totalCount: json['total_count'],
       incompleteResults: json['incomplete_results'],
       items: (json['items'] as List)
           .map((item) => switch (type) {
-                GitHubFeature.repositories => RepositoryItem.fromJson(item as Map<String, dynamic>),
+                SearchEntity.repositories => RepositoryItem.fromJson(item as Map<String, dynamic>),
               })
           .toList(),
     );

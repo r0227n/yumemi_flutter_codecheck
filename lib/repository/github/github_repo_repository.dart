@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'github_client.dart';
 import 'github_repository.dart';
-import 'models/github_response.dart';
+import 'models/search_response.dart';
 
 /// GitHub Search API's
 class GithubRepoRepository extends GithubRepository {
@@ -16,12 +16,12 @@ class GithubRepoRepository extends GithubRepository {
   String get token => _token;
 
   @override
-  GitHubFeature get feature => GitHubFeature.repositories;
+  String get feature => 'repositories';
 
   /// Search Repositories
   ///
   /// doc: https://docs.github.com/ja/rest/search/search?apiVersion=2022-11-28#search-repositories
-  Future<GithubResponse> search(
+  Future<SearchResponse> search(
     String query, {
     Sort sort = Sort.stars,
     Order order = Order.desc,
@@ -42,11 +42,11 @@ class GithubRepoRepository extends GithubRepository {
 
     final response = await GithubClient.request(
       token: token ?? this.token,
-      url: Uri.http(GithubRepository.host, '$apiType/${feature.name}', queryParameters),
+      url: Uri.http(GithubRepository.host, '$apiType/$feature', queryParameters),
       method: HttpMethod.get,
       apiVersion: apiVersion ?? this.apiVersion,
     );
 
-    return GithubResponse.fromJson(jsonDecode(response.body), type: GitHubFeature.repositories);
+    return SearchResponse.fromJson(jsonDecode(response.body), type: SearchEntity.repositories);
   }
 }
