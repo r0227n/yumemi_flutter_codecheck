@@ -15,12 +15,22 @@ class _HomePageState extends State<HomePage> {
   late final GithubRepoRepository repoRepository;
   late Future<List<GitHubItem>> _futureRepoItems;
 
+  late final SearchController _searchCtrl;
+
   @override
   void initState() {
     super.initState();
     repoRepository = GithubRepoRepository(Env.githubToken);
     // TODO: 初期検索は仮極めのため、いい感じにする
     _futureRepoItems = searchRepository('dart');
+
+    _searchCtrl = SearchController();
+  }
+
+  @override
+  void dispose() {
+    _searchCtrl.dispose();
+    super.dispose();
   }
 
   Future<List<GitHubItem>> searchRepository(String word) async {
@@ -32,7 +42,47 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          SearchAnchor(
+            searchController: _searchCtrl,
+            builder: (BuildContext context, SearchController controller) {
+              return IconButton(
+                icon: const Icon(Icons.search_outlined),
+                tooltip: 'Search',
+                onPressed: () {
+                  controller.openView();
+                },
+              );
+            },
+            suggestionsBuilder: (BuildContext context, SearchController controller) {
+              return List<ListTile>.generate(5, (int index) {
+                final String item = index == 0 ? '' : 'item $index';
+                return ListTile(
+                  title: Text(item),
+                  onTap: () {
+                    setState(() {
+                      controller.closeView(item);
+                    });
+                  },
+                );
+              });
+            },
+            viewOnSubmitted: (value) {
+              setState(() {
+                _searchCtrl.closeView(value);
+              });
+            },
+          ),
+          IconButton(
+            onPressed: () {
+              // TODO: ポップアップで設定画面を表示
+            },
+            tooltip: 'Settings',
+            icon: const Icon(Icons.settings_outlined),
+          ),
+        ],
+      ),
       body: FutureBuilder(
           future: _futureRepoItems,
           builder: (context, snapshot) {
