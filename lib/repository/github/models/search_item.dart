@@ -14,7 +14,7 @@ class RepositoryItem extends SearchItem {
     required this.owner,
     required this.isPrivate,
     required this.htmlUrl,
-    required this.description,
+    this.description,
     required this.fork,
     required this.url,
     required this.createdAt,
@@ -39,7 +39,7 @@ class RepositoryItem extends SearchItem {
   final Owner owner;
   final bool isPrivate;
   final String htmlUrl;
-  final String description;
+  final String? description;
   final bool fork;
   final String url;
   final DateTime createdAt;

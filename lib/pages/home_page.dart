@@ -1,80 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:yumemi_flutter_codecheck/l10n/arb/l10n.dart';
-import 'package:yumemi_flutter_codecheck/pages/detail_page.dart';
-import '../environment/secrets.dart';
+import '/l10n/arb/l10n.dart';
+import 'detail_page.dart';
+import '../widgets/search_app_bar.dart';
+import '../view_model/github_search_view_model.dart';
 import '../repository/github.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final githubRepository = ref.watch(gitHubSearchViewModelProvider);
 
-class _HomePageState extends State<HomePage> {
-  late final GithubRepoRepository repoRepository;
-  late Future<List<GitHubItem>> _futureRepoItems;
-
-  late final SearchController _searchCtrl;
-
-  @override
-  void initState() {
-    super.initState();
-    repoRepository = GithubRepoRepository(Env.githubToken);
-    // TODO: 初期検索は仮極めのため、いい感じにする
-    _futureRepoItems = searchRepository('dart');
-
-    _searchCtrl = SearchController();
-  }
-
-  @override
-  void dispose() {
-    _searchCtrl.dispose();
-    super.dispose();
-  }
-
-  Future<List<GitHubItem>> searchRepository(String word) async {
-    final response = await repoRepository.search(word);
-
-    return response.items;
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: SearchAppBar(
+        hintText: context.l10n.searchLabel([context.l10n.repository, 'Issues'].join(', ')),
         actions: [
-          SearchAnchor(
-            searchController: _searchCtrl,
-            builder: (BuildContext context, SearchController controller) {
-              return IconButton(
-                icon: const Icon(Icons.search_outlined),
-                tooltip: context.l10n.search,
-                onPressed: () {
-                  controller.openView();
-                },
-              );
-            },
-            suggestionsBuilder: (BuildContext context, SearchController controller) {
-              return List<ListTile>.generate(5, (int index) {
-                final String item = index == 0 ? '' : 'item $index';
-                return ListTile(
-                  title: Text(item),
-                  onTap: () {
-                    setState(() {
-                      controller.closeView(item);
-                    });
-                  },
-                );
-              });
-            },
-            viewOnSubmitted: (value) {
-              setState(() {
-                _searchCtrl.closeView(value);
-              });
-            },
-          ),
           MenuAnchor(
             menuChildren: <Widget>[
               MenuItemButton(
@@ -101,52 +44,30 @@ class _HomePageState extends State<HomePage> {
             },
           ),
         ],
+        onChanged: (value) {
+          ref.read(gitHubSearchViewModelProvider.notifier).searchRepository(value);
+        },
       ),
-      body: FutureBuilder(
-          future: _futureRepoItems,
-          builder: (context, snapshot) {
-            return switch ((snapshot.connectionState, snapshot.data)) {
-              (ConnectionState.done, List<RepositoryItem> repos) => Scrollbar(
-                  child: ListView(
-                    children: [
-                      for (final i in repos)
-                        ListTile(
-                          leading: CachedNetworkImage(
-                            imageUrl: i.owner.avatarUrl,
-                            placeholder: (context, url) => const CircularProgressIndicator(),
-                            errorWidget: (context, url, error) => const Icon(Icons.error),
-                          ),
-                          title: Text(
-                            i.name,
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                i.description,
-                                maxLines: 1,
-                                style: const TextStyle(overflow: TextOverflow.ellipsis),
-                              ),
-                              Chip(
-                                label: Text(i.language),
-                              ),
-                            ],
-                          ),
-                          isThreeLine: true,
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => DetailPage(i),
-                            ));
-                          },
-                        )
-                    ],
-                  ),
-                ),
-              (ConnectionState.waiting, _) => const Center(child: CircularProgressIndicator()),
-              _ => const Text('Error'),
-            };
-          }),
+      body: githubRepository.when(
+        data: (List<SearchItem> items) {
+          return ListView(
+            children: [
+              if (items.isEmpty)
+                const Center(child: Text('isEmpty')) // TODO: いい感じのUIにする
+              else
+                for (final i in items)
+                  switch (i) {
+                    RepositoryItem() => ProviderScope(
+                        overrides: [currentRepositoryProvider.overrideWithValue(i)],
+                        child: const RepositoryListItem(),
+                      ),
+                  }
+            ],
+          );
+        },
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stackTrace) => Text(error.toString()),
+      ),
     );
   }
 
@@ -202,6 +123,49 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ],
+        );
+      },
+    );
+  }
+}
+
+class RepositoryListItem extends ConsumerWidget {
+  const RepositoryListItem({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final repository = ref.watch(currentRepositoryProvider);
+
+    return ListTile(
+      leading: CachedNetworkImage(
+        imageUrl: repository.owner.avatarUrl,
+        placeholder: (context, url) => const CircularProgressIndicator(),
+        errorWidget: (context, url, error) => const Icon(Icons.error),
+      ),
+      title: Text(
+        repository.name,
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            repository.description ?? '',
+            maxLines: 1,
+            style: const TextStyle(overflow: TextOverflow.ellipsis),
+          ),
+          if (repository.language != null)
+            Chip(
+              label: Text(repository.language ?? ''),
+            ),
+        ],
+      ),
+      isThreeLine: true,
+      onTap: () async {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => DetailPage(repository),
+          ),
         );
       },
     );

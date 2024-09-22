@@ -6,5 +6,15 @@
     "settings": "Settings",
     "save": "Save",
     "cancel": "Cancel",
-    "languageSettings": "Language Settings"
+    "repository": "Repository",
+    "languageSettings": "Language Settings",
+    "searchLabel": "Search {labels}",
+    "@searchLabel": {
+        "placeholders": {
+            "labels": {
+                "type": "String",
+                "example": "Repository, Issues"
+            }
+        }
+    }
 }

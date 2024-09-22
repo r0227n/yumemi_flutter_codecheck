@@ -6,5 +6,15 @@
     "settings": "設定",
     "save": "保存",
     "cancel": "キャンセル",
-    "languageSettings": "言語設定"
+    "repository": "リポジトリ",
+    "languageSettings": "言語設定",
+    "searchLabel": "{labels}を検索する",
+    "@searchLabel": {
+        "placeholders": {
+            "labels": {
+                "type": "String",
+                "example": "リポジトリ, Issues"
+            }
+        }
+    }
 }
