@@ -24,7 +24,7 @@ class RepositoryItem extends SearchItem {
     required this.size,
     required this.stargazersCount,
     required this.watchersCount,
-    required this.language,
+    this.language,
     required this.forksCount,
     required this.openIssuesCount,
     required this.defaultBranch,
@@ -49,7 +49,7 @@ class RepositoryItem extends SearchItem {
   final int size;
   final int stargazersCount;
   final int watchersCount;
-  final String language;
+  final String? language;
   final int forksCount;
   final int openIssuesCount;
   final String defaultBranch;
