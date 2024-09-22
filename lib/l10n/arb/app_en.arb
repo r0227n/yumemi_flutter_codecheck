@@ -1,5 +1,10 @@
 {
     "@@locale": "en",
+    "ja": "Japanese",
+    "en": "English",
     "search": "Search",
-    "settings": "Settings"
+    "settings": "Settings",
+    "save": "Save",
+    "cancel": "Cancel",
+    "languageSettings": "Language Settings"
 }
