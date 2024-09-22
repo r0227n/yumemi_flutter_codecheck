@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:yumemi_flutter_codecheck/l10n/arb/l10n.dart';
 import 'package:yumemi_flutter_codecheck/pages/detail_page.dart';
 import '../environment/secrets.dart';
 import '../repository/github.dart';
@@ -49,7 +50,7 @@ class _HomePageState extends State<HomePage> {
             builder: (BuildContext context, SearchController controller) {
               return IconButton(
                 icon: const Icon(Icons.search_outlined),
-                tooltip: 'Search',
+                tooltip: context.l10n.search,
                 onPressed: () {
                   controller.openView();
                 },
@@ -74,12 +75,30 @@ class _HomePageState extends State<HomePage> {
               });
             },
           ),
-          IconButton(
-            onPressed: () {
-              // TODO: ポップアップで設定画面を表示
+          MenuAnchor(
+            menuChildren: <Widget>[
+              MenuItemButton(
+                leadingIcon: const Icon(Icons.language),
+                child: Text(context.l10n.languageSettings),
+                onPressed: () {
+                  _languageSelectDialog(context);
+                },
+              ),
+            ],
+            child: const Text('Background Color'),
+            builder: (BuildContext context, MenuController controller, Widget? child) {
+              return IconButton(
+                onPressed: () {
+                  if (controller.isOpen) {
+                    controller.close();
+                  } else {
+                    controller.open();
+                  }
+                },
+                tooltip: context.l10n.settings,
+                icon: const Icon(Icons.settings_outlined),
+              );
             },
-            tooltip: 'Settings',
-            icon: const Icon(Icons.settings_outlined),
           ),
         ],
       ),
@@ -128,6 +147,63 @@ class _HomePageState extends State<HomePage> {
               _ => const Text('Error'),
             };
           }),
+    );
+  }
+
+  Future<void> _languageSelectDialog(BuildContext context) {
+    Locale currentLocale = Localizations.localeOf(context);
+
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          icon: const Icon(Icons.language),
+          title: Text(context.l10n.languageSettings),
+          content: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    for (final locale in AppLocalizations.supportedLocales)
+                      RadioListTile<Locale>(
+                        value: locale,
+                        groupValue: currentLocale,
+                        onChanged: (newLocale) {
+                          if (newLocale != null) {
+                            setState(() => currentLocale = newLocale);
+                          }
+                        },
+                        title: Text(locale.toLabel(context)),
+                      ),
+                  ],
+                ),
+              );
+            },
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: Text(context.l10n.cancel),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: Text(context.l10n.save),
+              onPressed: () {
+                // 選択されたロケールを保存する処理を追加
+                // 例: AppLocalizations.load(selectedLocale);
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
