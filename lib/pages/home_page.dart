@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:yumemi_flutter_codecheck/l10n/arb/l10n.dart';
 import 'package:yumemi_flutter_codecheck/pages/detail_page.dart';
 import '../environment/secrets.dart';
 import '../repository/github.dart';
@@ -49,7 +50,7 @@ class _HomePageState extends State<HomePage> {
             builder: (BuildContext context, SearchController controller) {
               return IconButton(
                 icon: const Icon(Icons.search_outlined),
-                tooltip: 'Search',
+                tooltip: context.l10n.search,
                 onPressed: () {
                   controller.openView();
                 },
@@ -77,7 +78,7 @@ class _HomePageState extends State<HomePage> {
           MenuAnchor(
             menuChildren: <Widget>[
               MenuItemButton(
-                child: const Text('Settings'),
+                child: Text(context.l10n.settings),
                 onPressed: () {
                   // TODO: showDialog実装
                 },
@@ -93,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                     controller.open();
                   }
                 },
-                tooltip: 'Settings',
+                tooltip: context.l10n.settings,
                 icon: const Icon(Icons.settings_outlined),
               );
             },
