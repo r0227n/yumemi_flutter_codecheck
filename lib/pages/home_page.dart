@@ -16,7 +16,7 @@ class HomePage extends ConsumerWidget {
 
     return Scaffold(
       appBar: SearchAppBar(
-        hintText: context.l10n.searchLabel([context.l10n.repository, 'Issues'].join(', ')),
+        hintText: context.l10n.searchLabel([context.l10n.repository].labels),
         actions: [
           MenuAnchor(
             menuChildren: <Widget>[
