@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../l10n/l10n.dart';
+import '../themes/colors.dart';
 import '../themes/format.dart';
 import '../widgets/icon_text.dart';
 import '../providers/github_provider.dart';
@@ -108,7 +109,7 @@ class RepositoryDetailPage extends ConsumerWidget {
                   icon: tile.icon,
                   title: Text(
                     tile.title,
-                    style: tile.url != null ? const TextStyle(color: Color(0xFF1389FD)) : null,
+                    style: tile.url != null ? const TextStyle(color: AppColors.hyperLink) : null,
                   ),
                   onPressed: tile.url != null ? () => launchUrl(Uri.parse(tile.url!)) : null,
                 ),
