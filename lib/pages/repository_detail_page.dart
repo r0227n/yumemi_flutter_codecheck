@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '/l10n/l10n.dart';
 import '../widgets/icon_text.dart';
@@ -93,11 +94,7 @@ class RepositoryDetailPage extends ConsumerWidget {
                     tile.title,
                     style: tile.url != null ? const TextStyle(color: Color(0xFF1389FD)) : null,
                   ),
-                  onPressed: tile.url != null
-                      ? () {
-                          print(repo.licenseUrl);
-                        }
-                      : null,
+                  onPressed: tile.url != null ? () => launchUrl(Uri.parse(tile.url!)) : null,
                 ),
               Wrap(
                 children: [
