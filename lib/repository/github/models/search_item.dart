@@ -44,7 +44,7 @@ class RepositoryItem extends SearchItem {
   final String url;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final DateTime pushedAt;
+  final DateTime? pushedAt;
   final String? homepage;
   final int size;
   final int stargazersCount;
@@ -70,7 +70,7 @@ class RepositoryItem extends SearchItem {
       url: json['url'],
       createdAt: DateTime.parse(json['created_at']),
       updatedAt: DateTime.parse(json['updated_at']),
-      pushedAt: DateTime.parse(json['pushed_at']),
+      pushedAt: json['pushed_at'] != null ? DateTime.tryParse(json['pushed_at']) : null,
       homepage: json['homepage'],
       size: json['size'],
       stargazersCount: json['stargazers_count'],
