@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import '/l10n/l10n.dart';
 import 'repository_detail_page.dart';
 import '../widgets/search_app_bar.dart';
+import '../widgets/empty_view.dart';
 import '../view_model/github_search_view_model.dart';
 import '../repository/github.dart';
 
@@ -50,20 +51,34 @@ class HomePage extends ConsumerWidget {
       ),
       body: githubRepository.when(
         data: (List<SearchItem> items) {
-          return ListView(
-            children: [
-              if (items.isEmpty)
-                const Center(child: Text('isEmpty')) // TODO: いい感じのUIにする
-              else
-                for (final i in items)
-                  switch (i) {
-                    RepositoryItem() => ProviderScope(
-                        overrides: [currentRepositoryProvider.overrideWithValue(i)],
-                        child: const RepositoryListItem(),
-                      ),
-                  }
-            ],
-          );
+          return items.isNotEmpty
+              ? ListView(
+                  children: [
+                    for (final i in items)
+                      switch (i) {
+                        RepositoryItem() => ProviderScope(
+                            overrides: [currentRepositoryProvider.overrideWithValue(i)],
+                            child: const RepositoryListItem(),
+                          ),
+                      }
+                  ],
+                )
+              : EmptyView(
+                  icon: Icon(
+                    Icons.inbox,
+                    size: MediaQuery.of(context).size.width / 2,
+                  ),
+                  children: [
+                    Text(
+                      context.l10n.emptyTitle,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    Text(context.l10n.emptyMessage)
+                  ],
+                );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stackTrace) => Text(error.toString()),

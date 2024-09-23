@@ -8,6 +8,8 @@
     "cancel": "Cancel",
     "repository": "Repository",
     "languageSettings": "Language Settings",
+    "emptyTitle": "No Item",
+    "emptyMessage": "Plase search for it",
     "searchLabel": "Search {labels}",
     "@searchLabel": {
         "placeholders": {

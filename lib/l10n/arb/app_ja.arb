@@ -8,6 +8,8 @@
     "cancel": "キャンセル",
     "repository": "リポジトリ",
     "languageSettings": "言語設定",
+    "emptyTitle": "検索結果がありません",
+    "emptyMessage": "検索してください",
     "searchLabel": "{labels}を検索する",
     "@searchLabel": {
         "placeholders": {
