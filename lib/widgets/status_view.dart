@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class EmptyView extends StatelessWidget {
-  const EmptyView({
+class StatusView extends StatelessWidget {
+  const StatusView({
     super.key,
     this.icon,
     this.padding = EdgeInsets.zero,
