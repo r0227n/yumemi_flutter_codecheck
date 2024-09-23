@@ -18,7 +18,7 @@ class Repository {
     required this.contentsUrl,
     required this.contributorsUrl,
     this.createdAt,
-    required this.customProperties,
+    this.customProperties,
     required this.defaultBranch,
     required this.deploymentsUrl,
     this.description,
@@ -52,7 +52,7 @@ class Repository {
     required this.labelsUrl,
     this.language,
     required this.languagesUrl,
-    required this.license,
+    this.license,
     required this.mergesUrl,
     required this.milestonesUrl,
     this.mirrorUrl,
@@ -104,7 +104,7 @@ class Repository {
   final String contentsUrl;
   final String contributorsUrl;
   final DateTime? createdAt;
-  final Map<String, dynamic> customProperties;
+  final Map<String, dynamic>? customProperties;
   final String defaultBranch;
   final String deploymentsUrl;
   final String? description;
@@ -138,7 +138,7 @@ class Repository {
   final String labelsUrl;
   final String? language;
   final String languagesUrl;
-  final License license;
+  final License? license;
   final String mergesUrl;
   final String milestonesUrl;
   final String? mirrorUrl;
@@ -148,7 +148,7 @@ class Repository {
   final String notificationsUrl;
   final int openIssues;
   final int openIssuesCount;
-  final Organization organization;
+  final Organization? organization;
   final Owner owner;
   final bool private;
   final String pullsUrl;
@@ -225,7 +225,7 @@ class Repository {
       labelsUrl: json['labels_url'],
       language: json['language'],
       languagesUrl: json['languages_url'],
-      license: License.fromJson(json['license']),
+      license: json['license'] != null ? License.fromJson(json['license']) : null,
       mergesUrl: json['merges_url'],
       milestonesUrl: json['milestones_url'],
       mirrorUrl: json['mirror_url'],
@@ -235,7 +235,8 @@ class Repository {
       notificationsUrl: json['notifications_url'],
       openIssues: json['open_issues'],
       openIssuesCount: json['open_issues_count'],
-      organization: Organization.fromJson(json['organization']),
+      organization:
+          json['organization'] != null ? Organization.fromJson(json['organization']) : null,
       owner: Owner.fromJson(json['owner']),
       private: json['private'],
       pullsUrl: json['pulls_url'],

@@ -1,8 +1,12 @@
 import 'dart:convert';
+import 'package:yumemi_flutter_codecheck/repository/github.dart';
+
 import 'github_client.dart';
 import 'github_repository.dart';
 import 'models/search_response.dart';
 import 'models/repository.dart';
+
+typedef IssueCount = ({int openCount, int closedCount});
 
 enum IssueSort {
   created,
@@ -92,6 +96,26 @@ class GithubRepoRepository extends GithubRepository {
     return Repository.fromJson(jsonDecode(response.body));
   }
 
+  /// Get a Repository's License
+  ///
+  /// doc:https://docs.github.com/en/rest/licenses/licenses?apiVersion=2022-11-28#get-the-license-for-a-repository
+  Future<LicenseContent> getLicense(
+    String fullName, {
+    String? token,
+    String? apiVersion,
+  }) async {
+    const apiType = 'repos';
+
+    final response = await GithubClient.request(
+      token: token ?? this.token,
+      url: Uri.http(GithubRepository.host, '$apiType/$fullName/license'),
+      method: HttpMethod.get,
+      apiVersion: apiVersion ?? this.apiVersion,
+    );
+
+    return LicenseContent.fromJson(jsonDecode(response.body));
+  }
+
   /// Get the issues of the repository
   ///
   /// GraphQL sample response
@@ -110,7 +134,7 @@ class GithubRepoRepository extends GithubRepository {
   ///   }
   /// }
   /// ```
-  Future<({int openCount, int closeCount})> getIssues({
+  Future<IssueCount> getIssues({
     required String owner,
     required String name,
     String? token,
@@ -135,7 +159,7 @@ class GithubRepoRepository extends GithubRepository {
 
     return (
       openCount: repositoryIssue['open']['totalCount'] as int,
-      closeCount: repositoryIssue['closed']['totalCount'] as int
+      closedCount: repositoryIssue['closed']['totalCount'] as int
     );
   }
 }
