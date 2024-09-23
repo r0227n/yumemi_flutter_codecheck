@@ -87,7 +87,11 @@ class HomePage extends ConsumerWidget {
                 );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stackTrace) => Text(error.toString()),
+        error: (error, stackTrace) => StatusView.error(
+          errorMessage: error.toString(),
+          iconSize: MediaQuery.of(context).size.width / 2,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
       ),
     );
   }
