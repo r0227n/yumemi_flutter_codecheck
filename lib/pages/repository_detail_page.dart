@@ -6,6 +6,7 @@ import '../l10n/l10n.dart';
 import '../themes/colors.dart';
 import '../themes/format.dart';
 import '../widgets/icon_text.dart';
+import '../widgets/status_view.dart';
 import '../providers/github_provider.dart';
 
 typedef RepositoryAbountTile = ({
@@ -94,7 +95,7 @@ class RepositoryDetailPage extends ConsumerWidget {
                 leading: CachedNetworkImage(
                   imageUrl: repo.ownerIconUrl,
                   placeholder: (context, url) => const CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  errorWidget: (context, url, error) => const Icon(Icons.error, color: Colors.red),
                 ),
                 title: Text(
                   repo.title,
@@ -149,7 +150,11 @@ class RepositoryDetailPage extends ConsumerWidget {
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stackTrace) => Text(error.toString()), // TODO: エラー画面を作成する
+        error: (error, stackTrace) => StatusView.error(
+          errorMessage: error.toString(),
+          iconSize: MediaQuery.of(context).size.width / 2,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
       ),
     );
   }

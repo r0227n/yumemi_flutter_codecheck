@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:yumemi_flutter_codecheck/providers/config_provider.dart';
-import '/l10n/l10n.dart';
+import '../l10n/l10n.dart';
 import 'repository_detail_page.dart';
 import '../widgets/search_app_bar.dart';
-import '../widgets/empty_view.dart';
+import '../widgets/status_view.dart';
+import '../view_model/app_config_view_model.dart';
 import '../view_model/github_search_view_model.dart';
 import '../repository/github.dart';
 
@@ -69,7 +69,7 @@ class HomePage extends ConsumerWidget {
                       }
                   ],
                 )
-              : EmptyView(
+              : StatusView(
                   icon: Icon(
                     Icons.inbox,
                     size: MediaQuery.of(context).size.width / 2,
@@ -87,7 +87,11 @@ class HomePage extends ConsumerWidget {
                 );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stackTrace) => Text(error.toString()),
+        error: (error, stackTrace) => StatusView.error(
+          errorMessage: error.toString(),
+          iconSize: MediaQuery.of(context).size.width / 2,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
       ),
     );
   }
@@ -159,7 +163,7 @@ class RepositoryListItem extends ConsumerWidget {
       leading: CachedNetworkImage(
         imageUrl: repository.owner.avatarUrl,
         placeholder: (context, url) => const CircularProgressIndicator(),
-        errorWidget: (context, url, error) => const Icon(Icons.error),
+        errorWidget: (context, url, error) => const Icon(Icons.error, color: Colors.red),
       ),
       title: Text(
         repository.name,
