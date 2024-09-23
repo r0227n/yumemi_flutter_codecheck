@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:yumemi_flutter_codecheck/repository/github.dart';
+
 import 'github_client.dart';
 import 'github_repository.dart';
 import 'models/search_response.dart';
@@ -92,6 +94,26 @@ class GithubRepoRepository extends GithubRepository {
     );
 
     return Repository.fromJson(jsonDecode(response.body));
+  }
+
+  /// Get a Repository's License
+  ///
+  /// doc:https://docs.github.com/en/rest/licenses/licenses?apiVersion=2022-11-28#get-the-license-for-a-repository
+  Future<LicenseContent> getLicense(
+    String fullName, {
+    String? token,
+    String? apiVersion,
+  }) async {
+    const apiType = 'repos';
+
+    final response = await GithubClient.request(
+      token: token ?? this.token,
+      url: Uri.http(GithubRepository.host, '$apiType/$fullName/license'),
+      method: HttpMethod.get,
+      apiVersion: apiVersion ?? this.apiVersion,
+    );
+
+    return LicenseContent.fromJson(jsonDecode(response.body));
   }
 
   /// Get the issues of the repository
