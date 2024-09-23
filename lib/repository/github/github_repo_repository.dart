@@ -4,6 +4,8 @@ import 'github_repository.dart';
 import 'models/search_response.dart';
 import 'models/repository.dart';
 
+typedef IssueCount = ({int openCount, int closedCount});
+
 enum IssueSort {
   created,
   updated,
@@ -110,7 +112,7 @@ class GithubRepoRepository extends GithubRepository {
   ///   }
   /// }
   /// ```
-  Future<({int openCount, int closeCount})> getIssues({
+  Future<IssueCount> getIssues({
     required String owner,
     required String name,
     String? token,
@@ -135,7 +137,7 @@ class GithubRepoRepository extends GithubRepository {
 
     return (
       openCount: repositoryIssue['open']['totalCount'] as int,
-      closeCount: repositoryIssue['closed']['totalCount'] as int
+      closedCount: repositoryIssue['closed']['totalCount'] as int
     );
   }
 }

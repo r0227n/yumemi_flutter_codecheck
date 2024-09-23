@@ -6,3 +6,4 @@ export 'github/models/search_item.dart';
 export 'github/models/search_response.dart';
 export 'github/models/license.dart';
 export 'github/models/owner.dart';
+export 'github/models/repository.dart';
