@@ -163,7 +163,7 @@ class RepositoryListItem extends ConsumerWidget {
       leading: CachedNetworkImage(
         imageUrl: repository.owner.avatarUrl,
         placeholder: (context, url) => const CircularProgressIndicator(),
-        errorWidget: (context, url, error) => const Icon(Icons.error),
+        errorWidget: (context, url, error) => const Icon(Icons.error, color: Colors.red),
       ),
       title: Text(
         repository.name,

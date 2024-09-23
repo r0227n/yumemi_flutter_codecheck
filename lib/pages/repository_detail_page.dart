@@ -95,7 +95,7 @@ class RepositoryDetailPage extends ConsumerWidget {
                 leading: CachedNetworkImage(
                   imageUrl: repo.ownerIconUrl,
                   placeholder: (context, url) => const CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  errorWidget: (context, url, error) => const Icon(Icons.error, color: Colors.red),
                 ),
                 title: Text(
                   repo.title,
