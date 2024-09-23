@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
+import 'github_repository.dart';
 
 enum HttpMethod {
   get,
@@ -12,20 +14,9 @@ enum HttpMethod {
   patch;
 }
 
-enum Sort {
-  stars('stars'),
-  forks('forks'),
-  helpWantedIssues('help-wanted-issues'),
-  updated('updated');
-
-  const Sort(this.kebabCase);
-
-  final String kebabCase;
-}
-
-enum Order {
-  desc,
-  asc;
+enum Direction {
+  asc,
+  desc;
 }
 
 class GithubClient {
@@ -33,6 +24,7 @@ class GithubClient {
     required String token,
     required Uri url,
     required HttpMethod method,
+    String? body,
     required String apiVersion,
   }) async {
     final client = RetryClient(http.Client());
@@ -41,9 +33,10 @@ class GithubClient {
       'Authorization': 'Bear $token',
       'X-GitHub-Api-Version': apiVersion,
     });
+
     final response = await switch (method) {
       HttpMethod.get => client.get(url, headers: header),
-      // TODO: get 意外のmethodを定義時、宣言する。
+      // TODO:必要になった時、定義する
       HttpMethod.post => throw UnimplementedError(),
       HttpMethod.put => throw UnimplementedError(),
       HttpMethod.delete => throw UnimplementedError(),
@@ -54,6 +47,35 @@ class GithubClient {
 
     // TODO: エラーハンドリングの幅をもう少し広げる
     if (response.statusCode != 200) {
+      throw HttpException(response.body, uri: url);
+    }
+
+    return response;
+  }
+
+  /// GitHub API calls with GraphQL
+  ///
+  /// docs: https://docs.github.com/en/graphql/guides/forming-calls-with-graphql
+  static Future<http.Response> graphql(
+    String query, {
+    required String token,
+  }) async {
+    final client = RetryClient(http.Client());
+
+    final url = Uri.https(GithubRepository.host, 'graphql');
+    final header = {
+      'Authorization': 'bearer $token',
+      'Content-Type': 'application/json',
+    };
+    final response = await client.post(
+      url,
+      headers: header,
+      body: jsonEncode({'query': query}),
+    );
+
+    // TODO: エラーハンドリングの幅をもう少し広げる
+    final Map<String, dynamic> json = jsonDecode(response.body);
+    if (json['data'] == null) {
       throw HttpException(response.body, uri: url);
     }
 
