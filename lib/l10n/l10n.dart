@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart' show BuildContext, Locale;
-import '../arb/l10n.dart';
+import 'l10n.dart';
 
 export 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -13,4 +13,12 @@ extension LocaleX on Locale {
         'en' => context.l10n.en,
         _ => context.l10n.en,
       };
+}
+
+extension ListStringX on List<String> {
+  /// Convert the elements of a list into a single sentence, separated by commas.
+  ///
+  /// e.g.
+  /// - ['hoge', 'fuga'].labels => 'hoge, fuga'
+  String get labels => join(', ');
 }

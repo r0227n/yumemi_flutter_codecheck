@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../repository/github.dart';
 
-class DetailPage extends StatelessWidget {
-  const DetailPage(this.item, {super.key});
+class RepositoryDetailPage extends StatelessWidget {
+  const RepositoryDetailPage(this.item, {super.key});
 
   final RepositoryItem item;
 
@@ -26,8 +26,8 @@ class DetailPage extends StatelessWidget {
             title: Text(item.fullName),
             subtitle: item.owner.name != null ? Text(item.owner.name ?? '') : null,
           ),
-          Text(item.description),
-          Text(item.language),
+          Text(item.description ?? 'description'),
+          Text(item.language ?? 'language'),
           Text(item.stargazersCount.toString()),
           Text(item.watchersCount.toString()),
           Text(item.forksCount.toString()),
