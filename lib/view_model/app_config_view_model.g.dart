@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'config_provider.dart';
+part of 'app_config_view_model.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -21,5 +21,22 @@ final sharedPreferencesProvider = Provider<SharedPreferences>.internal(
 );
 
 typedef SharedPreferencesRef = ProviderRef<SharedPreferences>;
+String _$appConfigViewModelHash() =>
+    r'1c569a18ba7be7f63b868c4b6a725d2fe3f17611';
+
+/// See also [AppConfigViewModel].
+@ProviderFor(AppConfigViewModel)
+final appConfigViewModelProvider =
+    AutoDisposeNotifierProvider<AppConfigViewModel, AppConfigValue>.internal(
+  AppConfigViewModel.new,
+  name: r'appConfigViewModelProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$appConfigViewModelHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$AppConfigViewModel = AutoDisposeNotifier<AppConfigValue>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:yumemi_flutter_codecheck/providers/config_provider.dart';
 import '/l10n/l10n.dart';
 import 'repository_detail_page.dart';
 import '../widgets/search_app_bar.dart';
@@ -24,8 +25,13 @@ class HomePage extends ConsumerWidget {
               MenuItemButton(
                 leadingIcon: const Icon(Icons.language),
                 child: Text(context.l10n.languageSettings),
-                onPressed: () {
-                  _languageSelectDialog(context);
+                onPressed: () async {
+                  final selectLocale = await _languageSelectDialog(context);
+                  if (selectLocale == null) {
+                    return;
+                  }
+
+                  await ref.read(appConfigViewModelProvider.notifier).updateLocale(selectLocale);
                 },
               ),
             ],
@@ -86,10 +92,10 @@ class HomePage extends ConsumerWidget {
     );
   }
 
-  Future<void> _languageSelectDialog(BuildContext context) {
+  Future<Locale?> _languageSelectDialog(BuildContext context) {
     Locale currentLocale = Localizations.localeOf(context);
 
-    return showDialog<void>(
+    return showDialog<Locale>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -132,9 +138,7 @@ class HomePage extends ConsumerWidget {
               ),
               child: Text(context.l10n.save),
               onPressed: () {
-                // 選択されたロケールを保存する処理を追加
-                // 例: AppLocalizations.load(selectedLocale);
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(currentLocale);
               },
             ),
           ],
