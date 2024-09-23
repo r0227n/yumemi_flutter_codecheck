@@ -4,6 +4,23 @@ import 'github_repository.dart';
 import 'models/search_response.dart';
 import 'models/repository.dart';
 
+enum IssueSort {
+  created,
+  updated,
+  comments;
+}
+
+enum RepositorySort {
+  stars('stars'),
+  forks('forks'),
+  helpWantedIssues('help-wanted-issues'),
+  updated('updated');
+
+  const RepositorySort(this.kebabCase);
+
+  final String kebabCase;
+}
+
 /// GitHub Search API's
 class GithubRepoRepository extends GithubRepository {
   GithubRepoRepository(this._token);
@@ -24,13 +41,17 @@ class GithubRepoRepository extends GithubRepository {
   /// doc: https://docs.github.com/ja/rest/search/search?apiVersion=2022-11-28#search-repositories
   Future<SearchResponse> search(
     String query, {
-    Sort sort = Sort.stars,
-    Order order = Order.desc,
+    RepositorySort sort = RepositorySort.stars,
+    Direction order = Direction.desc,
     int perPage = 30,
     int page = 1,
     String? token,
     String? apiVersion,
   }) async {
+    if (perPage > 100) {
+      throw ArgumentError('perPage cannot exceed 100.');
+    }
+
     const apiType = 'search';
 
     final queryParameters = Map<String, String>.unmodifiable({
@@ -69,5 +90,52 @@ class GithubRepoRepository extends GithubRepository {
     );
 
     return Repository.fromJson(jsonDecode(response.body));
+  }
+
+  /// Retrieve the issues of the repository
+  ///
+  /// GraphQL sample response
+  ///
+  /// ```json
+  /// {
+  ///   "data": {
+  ///     "repository": {
+  ///       "open": {
+  ///         "totalCount": 12529
+  ///       },
+  ///       "closed": {
+  ///         "totalCount": 86068
+  ///       }
+  ///     }
+  ///   }
+  /// }
+  /// ```
+  Future<({int openCount, int closeCount})> getIssues({
+    required String owner,
+    required String name,
+    String? token,
+  }) async {
+    final String query = '''
+      query {
+        repository(owner: "$owner", name: "$name") {
+          open: issues(states: OPEN) {
+            totalCount
+          }
+          closed: issues(states: CLOSED) {
+            totalCount
+          }
+        }
+      }
+    ''';
+
+    final response = await GithubClient.graphql(query, token: token ?? this.token);
+
+    final Map<String, dynamic> json = jsonDecode(response.body);
+    final repositoryIssue = Map<String, dynamic>.from(json['data']['repository']);
+
+    return (
+      openCount: repositoryIssue['open']['totalCount'] as int,
+      closeCount: repositoryIssue['closed']['totalCount'] as int
+    );
   }
 }
