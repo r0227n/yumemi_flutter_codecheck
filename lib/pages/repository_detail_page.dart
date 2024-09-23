@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import '/l10n/l10n.dart';
+import '../l10n/l10n.dart';
+import '../themes/format.dart';
 import '../widgets/icon_text.dart';
 import '../providers/github_provider.dart';
 
@@ -33,25 +34,25 @@ class RepositoryDetailPage extends ConsumerWidget {
               icon: const Icon(Icons.star),
               count: repo.starCount,
               unit: 'stars',
-              tooltip: 'Stared',
+              tooltip: '${repo.starCount.formatNumber()} stars',
             ),
             (
               icon: const Icon(Icons.fork_left),
               count: repo.forkCount,
               unit: 'forks',
-              tooltip: 'Fork'
+              tooltip: '${repo.forkCount.formatNumber()} forks',
             ),
             (
               icon: const Icon(Icons.visibility),
               count: repo.watchCount,
               unit: 'watching',
-              tooltip: 'Watch'
+              tooltip: '${repo.watchCount.formatNumber()} watching',
             ),
             (
               icon: const Icon(Icons.adjust),
               count: repo.openIssueCount,
               unit: 'issues',
-              tooltip: 'Open Issues',
+              tooltip: '${repo.openIssueCount.formatNumber()} issues',
             ),
           ];
 
@@ -120,7 +121,7 @@ class RepositoryDetailPage extends ConsumerWidget {
                         avatar: abount.icon,
                         label: Text.rich(
                           TextSpan(
-                            text: abount.count.toString(),
+                            text: abount.count.formatNumberAsFixed(),
                             style: const TextStyle(fontWeight: FontWeight.bold),
                             children: <TextSpan>[
                               TextSpan(
