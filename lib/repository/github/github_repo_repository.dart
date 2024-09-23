@@ -92,7 +92,7 @@ class GithubRepoRepository extends GithubRepository {
     return Repository.fromJson(jsonDecode(response.body));
   }
 
-  /// Retrieve the issues of the repository
+  /// Get the issues of the repository
   ///
   /// GraphQL sample response
   ///
