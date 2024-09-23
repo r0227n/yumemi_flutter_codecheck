@@ -70,6 +70,21 @@ class RepositoryDetailPage extends ConsumerWidget {
               ),
           ];
 
+          final detailList = <IconTextItem>[
+            (
+              icon: repo.isPrivate ? const Icon(Icons.public_off) : const Icon(Icons.public),
+              title:
+                  '${repo.isPrivate ? context.l10n.private : context.l10n.public} ${context.l10n.repository}',
+              url: null,
+            ),
+            if (repo.language != null)
+              (
+                icon: const Icon(Icons.language),
+                title: repo.language!,
+                url: null,
+              )
+          ];
+
           return ListView(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             children: [
@@ -120,13 +135,14 @@ class RepositoryDetailPage extends ConsumerWidget {
                     ),
                 ],
               ),
-              IconText(
-                icon: repo.isPrivate ? const Icon(Icons.public_off) : const Icon(Icons.public),
-                title: Text(
-                  '${repo.isPrivate ? context.l10n.private : context.l10n.public} ${context.l10n.repository}',
+              for (final detail in detailList)
+                IconText(
+                  icon: detail.icon,
+                  title: Text(
+                    detail.title,
+                  ),
+                  onPressed: null,
                 ),
-                onPressed: null,
-              ),
             ],
           );
         },
