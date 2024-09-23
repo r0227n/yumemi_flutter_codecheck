@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import '/l10n/arb/l10n.dart';
-import 'detail_page.dart';
+import '/l10n/l10n.dart';
+import 'repository_detail_page.dart';
 import '../widgets/search_app_bar.dart';
 import '../view_model/github_search_view_model.dart';
 import '../repository/github.dart';
@@ -164,7 +164,7 @@ class RepositoryListItem extends ConsumerWidget {
       onTap: () async {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => DetailPage(repository),
+            builder: (context) => RepositoryDetailPage(repository),
           ),
         );
       },

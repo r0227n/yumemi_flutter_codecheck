@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart' show BuildContext, Locale;
-import '../arb/l10n.dart';
+import 'l10n.dart';
 
 export 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
