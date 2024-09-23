@@ -179,7 +179,7 @@ class RepositoryListItem extends ConsumerWidget {
       onTap: () async {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => RepositoryDetailPage(repository),
+            builder: (context) => RepositoryDetailPage(repository.fullName),
           ),
         );
       },

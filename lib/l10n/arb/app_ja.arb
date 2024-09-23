@@ -6,6 +6,8 @@
     "settings": "設定",
     "save": "保存",
     "cancel": "キャンセル",
+    "public": "公開",
+    "private": "プライベート",
     "repository": "リポジトリ",
     "languageSettings": "言語設定",
     "emptyTitle": "検索結果がありません",

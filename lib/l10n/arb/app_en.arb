@@ -6,6 +6,8 @@
     "settings": "Settings",
     "save": "Save",
     "cancel": "Cancel",
+    "public": "Public",
+    "private": "Private",
     "repository": "Repository",
     "languageSettings": "Language Settings",
     "emptyTitle": "No Item",
