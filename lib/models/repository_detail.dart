@@ -8,6 +8,7 @@ class RepositoryDetail {
     required this.fullName,
     required this.title,
     this.description,
+    this.htmlUrl,
     this.language,
     required this.isPrivate,
     this.homepage,
@@ -26,6 +27,7 @@ class RepositoryDetail {
   final String fullName;
   final String title;
   final String? description;
+  final String? htmlUrl;
 
   final String? language;
   final bool isPrivate;

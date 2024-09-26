@@ -8,6 +8,7 @@
     "public": "Public",
     "private": "Private",
     "repository": "Repository",
+    "openInBrowser": "Open in Browser",
     "languageSettings": "Language Settings",
     "emptyTitle": "No Item",
     "emptyMessage": "Plase search for it",

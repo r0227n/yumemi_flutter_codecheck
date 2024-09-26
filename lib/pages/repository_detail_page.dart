@@ -27,6 +27,17 @@ class RepositoryDetailPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(fullName),
+        actions: repoDetail.asData?.value.htmlUrl != null
+            ? [
+                IconButton(
+                  onPressed: () {
+                    launchUrl(Uri.parse(repoDetail.requireValue.htmlUrl!));
+                  },
+                  tooltip: context.l10n.openInBrowser,
+                  icon: const Icon(Icons.open_in_new),
+                ),
+              ]
+            : null,
       ),
       body: repoDetail.when(
         data: (repo) {
