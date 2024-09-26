@@ -24,7 +24,7 @@ enum RepositorySort {
   final String kebabCase;
 }
 
-/// GitHub Search API's
+/// This class handles the GitHub repository related operations
 class GitHubRepoRepository extends GitHubRepository {
   GitHubRepoRepository(this._token);
 
