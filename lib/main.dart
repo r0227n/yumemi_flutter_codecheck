@@ -29,7 +29,7 @@ class MyApp extends ConsumerWidget {
     ));
 
     return MaterialApp(
-      title: 'GitHub Search',
+      title: 'Yumemi Flutter Codecheck',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,

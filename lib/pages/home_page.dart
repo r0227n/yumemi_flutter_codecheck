@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../l10n/l10n.dart';
 import 'repository_detail_page.dart';
-import '../widgets/search_app_bar.dart';
-import '../widgets/status_view.dart';
+import '../widgets/widgets.dart';
 import '../view_model/app_config_view_model.dart';
 import '../view_model/github_search_view_model.dart';
 import '../repository/github.dart';
@@ -32,6 +31,13 @@ class HomePage extends ConsumerWidget {
                   }
 
                   await ref.read(appConfigViewModelProvider.notifier).updateLocale(selectLocale);
+                },
+              ),
+              MenuItemButton(
+                leadingIcon: const Icon(Icons.note),
+                child: Text(context.l10n.licenses),
+                onPressed: () async {
+                  showLicense(context: context);
                 },
               ),
             ],
