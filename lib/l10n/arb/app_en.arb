@@ -1,0 +1,24 @@
+{
+    "@@locale": "en",
+    "search": "Search",
+    "settings": "Settings",
+    "save": "Save",
+    "cancel": "Cancel",
+    "licenses": "Licenses",
+    "public": "Public",
+    "private": "Private",
+    "repository": "Repository",
+    "openInBrowser": "Open in Browser",
+    "languageSettings": "Language Settings",
+    "emptyTitle": "No Item",
+    "emptyMessage": "Plase search for it",
+    "searchLabel": "Search {labels}",
+    "@searchLabel": {
+        "placeholders": {
+            "labels": {
+                "type": "String",
+                "example": "Repository, Issues"
+            }
+        }
+    }
+}
