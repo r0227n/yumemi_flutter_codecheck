@@ -30,6 +30,7 @@ FutureOr<RepositoryDetail> repositoryDetail(RepositoryDetailRef ref, String full
     fullName: repository.fullName,
     title: repository.name,
     description: repository.description,
+    htmlUrl: repository.htmlUrl,
     language: repository.language,
     isPrivate: repository.private,
     homepage: repository.homepage,
