@@ -29,7 +29,7 @@ class MyApp extends ConsumerWidget {
     ));
 
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'GitHub Search',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
