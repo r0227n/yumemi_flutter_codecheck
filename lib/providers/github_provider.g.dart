@@ -20,7 +20,7 @@ final gitHubRepoProvider = AutoDisposeProvider<GithubRepoRepository>.internal(
 );
 
 typedef GitHubRepoRef = AutoDisposeProviderRef<GithubRepoRepository>;
-String _$repositoryDetailHash() => r'8980a805dc7dc690672f7c8e0e222a67b43651ce';
+String _$repositoryDetailHash() => r'80d25708bc3d76fa939634b27c8595e4009cb797';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -54,10 +54,10 @@ class RepositoryDetailFamily extends Family<AsyncValue<RepositoryDetail>> {
 
   /// See also [repositoryDetail].
   RepositoryDetailProvider call(
-    String fullname,
+    String fullName,
   ) {
     return RepositoryDetailProvider(
-      fullname,
+      fullName,
     );
   }
 
@@ -66,7 +66,7 @@ class RepositoryDetailFamily extends Family<AsyncValue<RepositoryDetail>> {
     covariant RepositoryDetailProvider provider,
   ) {
     return call(
-      provider.fullname,
+      provider.fullName,
     );
   }
 
@@ -90,11 +90,11 @@ class RepositoryDetailProvider
     extends AutoDisposeFutureProvider<RepositoryDetail> {
   /// See also [repositoryDetail].
   RepositoryDetailProvider(
-    String fullname,
+    String fullName,
   ) : this._internal(
           (ref) => repositoryDetail(
             ref as RepositoryDetailRef,
-            fullname,
+            fullName,
           ),
           from: repositoryDetailProvider,
           name: r'repositoryDetailProvider',
@@ -105,7 +105,7 @@ class RepositoryDetailProvider
           dependencies: RepositoryDetailFamily._dependencies,
           allTransitiveDependencies:
               RepositoryDetailFamily._allTransitiveDependencies,
-          fullname: fullname,
+          fullName: fullName,
         );
 
   RepositoryDetailProvider._internal(
@@ -115,10 +115,10 @@ class RepositoryDetailProvider
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.fullname,
+    required this.fullName,
   }) : super.internal();
 
-  final String fullname;
+  final String fullName;
 
   @override
   Override overrideWith(
@@ -133,7 +133,7 @@ class RepositoryDetailProvider
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        fullname: fullname,
+        fullName: fullName,
       ),
     );
   }
@@ -145,21 +145,21 @@ class RepositoryDetailProvider
 
   @override
   bool operator ==(Object other) {
-    return other is RepositoryDetailProvider && other.fullname == fullname;
+    return other is RepositoryDetailProvider && other.fullName == fullName;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, fullname.hashCode);
+    hash = _SystemHash.combine(hash, fullName.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
 mixin RepositoryDetailRef on AutoDisposeFutureProviderRef<RepositoryDetail> {
-  /// The parameter `fullname` of this provider.
-  String get fullname;
+  /// The parameter `fullName` of this provider.
+  String get fullName;
 }
 
 class _RepositoryDetailProviderElement
@@ -168,7 +168,7 @@ class _RepositoryDetailProviderElement
   _RepositoryDetailProviderElement(super.provider);
 
   @override
-  String get fullname => (origin as RepositoryDetailProvider).fullname;
+  String get fullName => (origin as RepositoryDetailProvider).fullName;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

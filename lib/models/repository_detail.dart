@@ -5,7 +5,7 @@ class RepositoryDetail {
     required this.id,
     required this.ownerIconUrl,
     this.ownerName,
-    required this.fullname,
+    required this.fullName,
     required this.title,
     this.description,
     this.language,
@@ -23,7 +23,7 @@ class RepositoryDetail {
   final int id;
   final String ownerIconUrl;
   final String? ownerName;
-  final String fullname;
+  final String fullName;
   final String title;
   final String? description;
 
