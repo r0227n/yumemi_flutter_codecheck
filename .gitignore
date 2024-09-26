@@ -41,4 +41,4 @@ app.*.map.json
 .fvm/
 
 # Enviroment values
-dart_defines/
+dart_defines/*.env
