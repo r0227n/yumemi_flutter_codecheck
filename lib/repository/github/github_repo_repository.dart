@@ -1,8 +1,7 @@
 import 'dart:convert';
-import 'package:yumemi_flutter_codecheck/repository/github.dart';
-
 import 'github_client.dart';
 import 'github_repository.dart';
+import 'models/license_content.dart';
 import 'models/search_response.dart';
 import 'models/repository.dart';
 
@@ -26,8 +25,8 @@ enum RepositorySort {
 }
 
 /// GitHub Search API's
-class GithubRepoRepository extends GithubRepository {
-  GithubRepoRepository(this._token);
+class GitHubRepoRepository extends GitHubRepository {
+  GitHubRepoRepository(this._token);
 
   final String _token;
 
@@ -66,9 +65,9 @@ class GithubRepoRepository extends GithubRepository {
       'page': '$page',
     });
 
-    final response = await GithubClient.request(
+    final response = await GitHubClient.request(
       token: token ?? this.token,
-      url: Uri.http(GithubRepository.host, '$apiType/$feature', queryParameters),
+      url: Uri.http(GitHubRepository.host, '$apiType/$feature', queryParameters),
       method: HttpMethod.get,
       apiVersion: apiVersion ?? this.apiVersion,
     );
@@ -86,9 +85,9 @@ class GithubRepoRepository extends GithubRepository {
   }) async {
     const apiType = 'repos';
 
-    final response = await GithubClient.request(
+    final response = await GitHubClient.request(
       token: token ?? this.token,
-      url: Uri.http(GithubRepository.host, '$apiType/$fullName'),
+      url: Uri.http(GitHubRepository.host, '$apiType/$fullName'),
       method: HttpMethod.get,
       apiVersion: apiVersion ?? this.apiVersion,
     );
@@ -106,9 +105,9 @@ class GithubRepoRepository extends GithubRepository {
   }) async {
     const apiType = 'repos';
 
-    final response = await GithubClient.request(
+    final response = await GitHubClient.request(
       token: token ?? this.token,
-      url: Uri.http(GithubRepository.host, '$apiType/$fullName/license'),
+      url: Uri.http(GitHubRepository.host, '$apiType/$fullName/license'),
       method: HttpMethod.get,
       apiVersion: apiVersion ?? this.apiVersion,
     );
@@ -152,7 +151,7 @@ class GithubRepoRepository extends GithubRepository {
       }
     ''';
 
-    final response = await GithubClient.graphql(query, token: token ?? this.token);
+    final response = await GitHubClient.graphql(query, token: token ?? this.token);
 
     final Map<String, dynamic> json = jsonDecode(response.body);
     final repositoryIssue = Map<String, dynamic>.from(json['data']['repository']);

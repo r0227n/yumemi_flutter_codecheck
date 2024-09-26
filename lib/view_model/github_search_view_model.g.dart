@@ -22,7 +22,7 @@ final currentRepositoryProvider = AutoDisposeProvider<RepositoryItem>.internal(
 
 typedef CurrentRepositoryRef = AutoDisposeProviderRef<RepositoryItem>;
 String _$gitHubSearchViewModelHash() =>
-    r'5a1cb4261669aadc32d0f688680ae34c749d0797';
+    r'7c602b381139aa5a2c1e5d5ddf9a3648a0c87606';
 
 /// See also [GitHubSearchViewModel].
 @ProviderFor(GitHubSearchViewModel)

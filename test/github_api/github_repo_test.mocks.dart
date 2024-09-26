@@ -3,11 +3,15 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i7;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i3;
-import 'package:yumemi_flutter_codecheck/repository/github.dart' as _i2;
+import 'package:mockito/src/dummies.dart' as _i6;
+import 'package:yumemi_flutter_codecheck/repository/github/github_client.dart' as _i8;
+import 'package:yumemi_flutter_codecheck/repository/github/github_repo_repository.dart' as _i5;
+import 'package:yumemi_flutter_codecheck/repository/github/models/license_content.dart' as _i4;
+import 'package:yumemi_flutter_codecheck/repository/github/models/repository.dart' as _i3;
+import 'package:yumemi_flutter_codecheck/repository/github/models/search_response.dart' as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -22,8 +26,7 @@ import 'package:yumemi_flutter_codecheck/repository/github.dart' as _i2;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeSearchResponse_0 extends _i1.SmartFake
-    implements _i2.SearchResponse {
+class _FakeSearchResponse_0 extends _i1.SmartFake implements _i2.SearchResponse {
   _FakeSearchResponse_0(
     Object parent,
     Invocation parentInvocation,
@@ -33,7 +36,7 @@ class _FakeSearchResponse_0 extends _i1.SmartFake
         );
 }
 
-class _FakeRepository_1 extends _i1.SmartFake implements _i2.Repository {
+class _FakeRepository_1 extends _i1.SmartFake implements _i3.Repository {
   _FakeRepository_1(
     Object parent,
     Invocation parentInvocation,
@@ -43,8 +46,7 @@ class _FakeRepository_1 extends _i1.SmartFake implements _i2.Repository {
         );
 }
 
-class _FakeLicenseContent_2 extends _i1.SmartFake
-    implements _i2.LicenseContent {
+class _FakeLicenseContent_2 extends _i1.SmartFake implements _i4.LicenseContent {
   _FakeLicenseContent_2(
     Object parent,
     Invocation parentInvocation,
@@ -54,19 +56,18 @@ class _FakeLicenseContent_2 extends _i1.SmartFake
         );
 }
 
-/// A class which mocks [GithubRepoRepository].
+/// A class which mocks [GitHubRepoRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGithubRepoRepository extends _i1.Mock
-    implements _i2.GithubRepoRepository {
+class MockGitHubRepoRepository extends _i1.Mock implements _i5.GitHubRepoRepository {
   @override
   String get apiVersion => (super.noSuchMethod(
         Invocation.getter(#apiVersion),
-        returnValue: _i3.dummyValue<String>(
+        returnValue: _i6.dummyValue<String>(
           this,
           Invocation.getter(#apiVersion),
         ),
-        returnValueForMissingStub: _i3.dummyValue<String>(
+        returnValueForMissingStub: _i6.dummyValue<String>(
           this,
           Invocation.getter(#apiVersion),
         ),
@@ -75,11 +76,11 @@ class MockGithubRepoRepository extends _i1.Mock
   @override
   String get token => (super.noSuchMethod(
         Invocation.getter(#token),
-        returnValue: _i3.dummyValue<String>(
+        returnValue: _i6.dummyValue<String>(
           this,
           Invocation.getter(#token),
         ),
-        returnValueForMissingStub: _i3.dummyValue<String>(
+        returnValueForMissingStub: _i6.dummyValue<String>(
           this,
           Invocation.getter(#token),
         ),
@@ -88,21 +89,21 @@ class MockGithubRepoRepository extends _i1.Mock
   @override
   String get feature => (super.noSuchMethod(
         Invocation.getter(#feature),
-        returnValue: _i3.dummyValue<String>(
+        returnValue: _i6.dummyValue<String>(
           this,
           Invocation.getter(#feature),
         ),
-        returnValueForMissingStub: _i3.dummyValue<String>(
+        returnValueForMissingStub: _i6.dummyValue<String>(
           this,
           Invocation.getter(#feature),
         ),
       ) as String);
 
   @override
-  _i4.Future<_i2.SearchResponse> search(
+  _i7.Future<_i2.SearchResponse> search(
     String? query, {
-    _i2.RepositorySort? sort = _i2.RepositorySort.stars,
-    _i2.Direction? order = _i2.Direction.desc,
+    _i5.RepositorySort? sort = _i5.RepositorySort.stars,
+    _i8.Direction? order = _i8.Direction.desc,
     int? perPage = 30,
     int? page = 1,
     String? token,
@@ -121,7 +122,7 @@ class MockGithubRepoRepository extends _i1.Mock
             #apiVersion: apiVersion,
           },
         ),
-        returnValue: _i4.Future<_i2.SearchResponse>.value(_FakeSearchResponse_0(
+        returnValue: _i7.Future<_i2.SearchResponse>.value(_FakeSearchResponse_0(
           this,
           Invocation.method(
             #search,
@@ -136,8 +137,7 @@ class MockGithubRepoRepository extends _i1.Mock
             },
           ),
         )),
-        returnValueForMissingStub:
-            _i4.Future<_i2.SearchResponse>.value(_FakeSearchResponse_0(
+        returnValueForMissingStub: _i7.Future<_i2.SearchResponse>.value(_FakeSearchResponse_0(
           this,
           Invocation.method(
             #search,
@@ -152,10 +152,10 @@ class MockGithubRepoRepository extends _i1.Mock
             },
           ),
         )),
-      ) as _i4.Future<_i2.SearchResponse>);
+      ) as _i7.Future<_i2.SearchResponse>);
 
   @override
-  _i4.Future<_i2.Repository> get(
+  _i7.Future<_i3.Repository> get(
     String? fullName, {
     String? token,
     String? apiVersion,
@@ -169,7 +169,7 @@ class MockGithubRepoRepository extends _i1.Mock
             #apiVersion: apiVersion,
           },
         ),
-        returnValue: _i4.Future<_i2.Repository>.value(_FakeRepository_1(
+        returnValue: _i7.Future<_i3.Repository>.value(_FakeRepository_1(
           this,
           Invocation.method(
             #get,
@@ -180,8 +180,7 @@ class MockGithubRepoRepository extends _i1.Mock
             },
           ),
         )),
-        returnValueForMissingStub:
-            _i4.Future<_i2.Repository>.value(_FakeRepository_1(
+        returnValueForMissingStub: _i7.Future<_i3.Repository>.value(_FakeRepository_1(
           this,
           Invocation.method(
             #get,
@@ -192,10 +191,10 @@ class MockGithubRepoRepository extends _i1.Mock
             },
           ),
         )),
-      ) as _i4.Future<_i2.Repository>);
+      ) as _i7.Future<_i3.Repository>);
 
   @override
-  _i4.Future<_i2.LicenseContent> getLicense(
+  _i7.Future<_i4.LicenseContent> getLicense(
     String? fullName, {
     String? token,
     String? apiVersion,
@@ -209,7 +208,7 @@ class MockGithubRepoRepository extends _i1.Mock
             #apiVersion: apiVersion,
           },
         ),
-        returnValue: _i4.Future<_i2.LicenseContent>.value(_FakeLicenseContent_2(
+        returnValue: _i7.Future<_i4.LicenseContent>.value(_FakeLicenseContent_2(
           this,
           Invocation.method(
             #getLicense,
@@ -220,8 +219,7 @@ class MockGithubRepoRepository extends _i1.Mock
             },
           ),
         )),
-        returnValueForMissingStub:
-            _i4.Future<_i2.LicenseContent>.value(_FakeLicenseContent_2(
+        returnValueForMissingStub: _i7.Future<_i4.LicenseContent>.value(_FakeLicenseContent_2(
           this,
           Invocation.method(
             #getLicense,
@@ -232,10 +230,10 @@ class MockGithubRepoRepository extends _i1.Mock
             },
           ),
         )),
-      ) as _i4.Future<_i2.LicenseContent>);
+      ) as _i7.Future<_i4.LicenseContent>);
 
   @override
-  _i4.Future<({int closedCount, int openCount})> getIssues({
+  _i7.Future<({int closedCount, int openCount})> getIssues({
     required String? owner,
     required String? name,
     String? token,
@@ -250,10 +248,9 @@ class MockGithubRepoRepository extends _i1.Mock
             #token: token,
           },
         ),
-        returnValue: _i4.Future<({int closedCount, int openCount})>.value(
-            (closedCount: 0, openCount: 0)),
+        returnValue:
+            _i7.Future<({int closedCount, int openCount})>.value((closedCount: 0, openCount: 0)),
         returnValueForMissingStub:
-            _i4.Future<({int closedCount, int openCount})>.value(
-                (closedCount: 0, openCount: 0)),
-      ) as _i4.Future<({int closedCount, int openCount})>);
+            _i7.Future<({int closedCount, int openCount})>.value((closedCount: 0, openCount: 0)),
+      ) as _i7.Future<({int closedCount, int openCount})>);
 }

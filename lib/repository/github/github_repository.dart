@@ -1,4 +1,4 @@
-abstract class GithubRepository {
+abstract class GitHubRepository {
   static const String host = 'api.github.com';
 
   /// GitHub token

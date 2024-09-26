@@ -17,7 +17,7 @@ class GitHubSearchViewModel extends _$GitHubSearchViewModel {
     return Future.value(const []);
   }
 
-  late final GithubRepoRepository repoRepository;
+  late final GitHubRepoRepository repoRepository;
 
   Future<void> searchRepository(String keyword) async {
     state = const AsyncLoading();
