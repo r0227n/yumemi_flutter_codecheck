@@ -5,8 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import '../l10n/l10n.dart';
 import '../themes/colors.dart';
 import '../themes/format.dart';
-import '../widgets/icon_text.dart';
-import '../widgets/status_view.dart';
+import '../widgets/widgets.dart';
 import '../providers/github_provider.dart';
 
 typedef RepositoryAbountTile = ({
