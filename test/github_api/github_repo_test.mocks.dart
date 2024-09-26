@@ -54,11 +54,11 @@ class _FakeLicenseContent_2 extends _i1.SmartFake
         );
 }
 
-/// A class which mocks [GithubRepoRepository].
+/// A class which mocks [GitHubRepoRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGithubRepoRepository extends _i1.Mock
-    implements _i2.GithubRepoRepository {
+class MockGitHubRepoRepository extends _i1.Mock
+    implements _i2.GitHubRepoRepository {
   @override
   String get apiVersion => (super.noSuchMethod(
         Invocation.getter(#apiVersion),

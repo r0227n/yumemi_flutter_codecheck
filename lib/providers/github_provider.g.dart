@@ -6,11 +6,11 @@ part of 'github_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$gitHubRepoHash() => r'd11b6edba56db2ccab6b83d5645fea58d67b1e41';
+String _$gitHubRepoHash() => r'4b873a5ad77138fd714bb5e11fec1b74a529bb20';
 
 /// See also [gitHubRepo].
 @ProviderFor(gitHubRepo)
-final gitHubRepoProvider = AutoDisposeProvider<GithubRepoRepository>.internal(
+final gitHubRepoProvider = AutoDisposeProvider<GitHubRepoRepository>.internal(
   gitHubRepo,
   name: r'gitHubRepoProvider',
   debugGetCreateSourceHash:
@@ -19,7 +19,7 @@ final gitHubRepoProvider = AutoDisposeProvider<GithubRepoRepository>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef GitHubRepoRef = AutoDisposeProviderRef<GithubRepoRepository>;
+typedef GitHubRepoRef = AutoDisposeProviderRef<GitHubRepoRepository>;
 String _$repositoryDetailHash() => r'80d25708bc3d76fa939634b27c8595e4009cb797';
 
 /// Copied from Dart SDK

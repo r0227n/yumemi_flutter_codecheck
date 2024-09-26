@@ -3,15 +3,15 @@ import 'package:mockito/annotations.dart';
 import 'package:yumemi_flutter_codecheck/repository/github.dart';
 import 'github_repo_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<GithubRepoRepository>()])
+@GenerateNiceMocks([MockSpec<GitHubRepoRepository>()])
 void main() {
-  late MockGithubRepoRepository mockRepository;
+  late MockGitHubRepoRepository mockRepository;
 
   setUp(() {
-    mockRepository = MockGithubRepoRepository();
+    mockRepository = MockGitHubRepoRepository();
   });
 
-  group('GithubRepoRepository Tests', () {
+  group('GitHubRepoRepository Tests', () {
     test('search returns SearchResponse', () async {
       final response = await mockRepository.search('flutter');
 

@@ -7,8 +7,8 @@ import '../models/repository_detail.dart';
 part 'github_provider.g.dart';
 
 @riverpod
-GithubRepoRepository gitHubRepo(GitHubRepoRef ref) {
-  return GithubRepoRepository(Env.githubToken);
+GitHubRepoRepository gitHubRepo(GitHubRepoRef ref) {
+  return GitHubRepoRepository(Env.githubToken);
 }
 
 @riverpod

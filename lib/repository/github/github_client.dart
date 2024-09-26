@@ -19,7 +19,7 @@ enum Direction {
   desc;
 }
 
-class GithubClient {
+class GitHubClient {
   static Future<http.Response> request({
     required String token,
     required Uri url,
@@ -62,7 +62,7 @@ class GithubClient {
   }) async {
     final client = RetryClient(http.Client());
 
-    final url = Uri.https(GithubRepository.host, 'graphql');
+    final url = Uri.https(GitHubRepository.host, 'graphql');
     final header = {
       'Authorization': 'bearer $token',
       'Content-Type': 'application/json',
