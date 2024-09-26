@@ -33,6 +33,7 @@ class RepositoryDetailPage extends ConsumerWidget {
                   onPressed: () {
                     launchUrl(Uri.parse(repoDetail.requireValue.htmlUrl!));
                   },
+                  tooltip: context.l10n.openInBrowser,
                   icon: const Icon(Icons.open_in_new),
                 ),
               ]
