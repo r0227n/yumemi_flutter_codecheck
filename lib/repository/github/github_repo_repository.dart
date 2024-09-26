@@ -1,8 +1,7 @@
 import 'dart:convert';
-import 'package:yumemi_flutter_codecheck/repository/github.dart';
-
 import 'github_client.dart';
 import 'github_repository.dart';
+import 'models/license_content.dart';
 import 'models/search_response.dart';
 import 'models/repository.dart';
 
