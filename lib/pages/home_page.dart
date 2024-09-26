@@ -179,7 +179,9 @@ class RepositoryListItem extends ConsumerWidget {
           ),
           if (repository.language != null)
             Chip(
+              avatar: const Icon(Icons.language),
               label: Text(repository.language ?? ''),
+              side: BorderSide.none,
             ),
         ],
       ),
