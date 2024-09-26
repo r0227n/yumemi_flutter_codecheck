@@ -1,4 +1,4 @@
-import 'package:yumemi_flutter_codecheck/repository/github.dart';
+import '../repository/github.dart';
 
 class RepositoryDetail {
   const RepositoryDetail({
