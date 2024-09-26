@@ -58,16 +58,18 @@ class HomePage extends ConsumerWidget {
       body: githubRepository.when(
         data: (List<SearchItem> items) {
           return items.isNotEmpty
-              ? ListView(
-                  children: [
-                    for (final i in items)
-                      switch (i) {
-                        RepositoryItem() => ProviderScope(
-                            overrides: [currentRepositoryProvider.overrideWithValue(i)],
-                            child: const RepositoryListItem(),
-                          ),
-                      }
-                  ],
+              ? Scrollbar(
+                  child: ListView(
+                    children: [
+                      for (final i in items)
+                        switch (i) {
+                          RepositoryItem() => ProviderScope(
+                              overrides: [currentRepositoryProvider.overrideWithValue(i)],
+                              child: const RepositoryListItem(),
+                            ),
+                        }
+                    ],
+                  ),
                 )
               : StatusView(
                   icon: Icon(
@@ -179,7 +181,9 @@ class RepositoryListItem extends ConsumerWidget {
           ),
           if (repository.language != null)
             Chip(
+              avatar: const Icon(Icons.language),
               label: Text(repository.language ?? ''),
+              side: BorderSide.none,
             ),
         ],
       ),

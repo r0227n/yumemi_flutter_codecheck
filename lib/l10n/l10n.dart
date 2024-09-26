@@ -9,9 +9,9 @@ extension AppLocalizationsX on BuildContext {
 
 extension LocaleX on Locale {
   String toLabel(BuildContext context) => switch (languageCode) {
-        'ja' => context.l10n.ja,
-        'en' => context.l10n.en,
-        _ => context.l10n.en,
+        'ja' => '日本語',
+        'en' => 'English',
+        _ => 'English',
       };
 }
 
